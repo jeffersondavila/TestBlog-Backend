@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddSqlServer<BlogDbContext>(builder.Configuration.GetConnectionString("BlogPersonal"));
+builder.Services.AddSqlServer<BlogDbContext>(builder.Configuration.GetConnectionString("dbconnection"));
 builder.Services.AddScoped<IBlogService, BlogService>();
 
 var app = builder.Build();
