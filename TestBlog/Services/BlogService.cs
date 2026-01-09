@@ -26,7 +26,7 @@ namespace TestBlog.Services
                     CodigoUsuario = b.CodigoUsuario 
                 })
                 .Take(10)
-                .ToListAsync();
+                .ToListAsync() ?? new List<BlogDTO>();
 
             return blogs;
         }
