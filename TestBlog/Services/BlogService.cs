@@ -14,7 +14,8 @@ namespace TestBlog.Services
 
         public async Task<IEnumerable<BlogDTO>> GetBlogs()
         {
-            var blogs = await _context.Blogs.Where(b => b.Estado == true)
+            var blogs = await _context.Blogs
+                .Where(b => b.Estado == true)
                 .Select(b => new BlogDTO 
                 { 
                     CodigoBlog = b.CodigoBlog, 
@@ -32,7 +33,8 @@ namespace TestBlog.Services
 
         public async Task<BlogDTO> GetBlog(int id)
         {
-            var blog = await _context.Blogs.Where(b => b.CodigoBlog == id)
+            var blog = await _context.Blogs
+                .Where(b => b.CodigoBlog == id)
                 .Select(b => new BlogDTO
                 {
                     CodigoBlog = b.CodigoBlog,
@@ -42,9 +44,9 @@ namespace TestBlog.Services
                     CodigoCategoria = b.CodigoCategoria,
                     CodigoUsuario = b.CodigoUsuario
                 })
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync() ?? new BlogDTO();
 
-            return blog ?? new BlogDTO();
+            return blog;
         }
 
         public async Task CreateBlog(BlogDTO blogDTO)
@@ -63,7 +65,8 @@ namespace TestBlog.Services
 
         public async Task UpdateBlog(BlogDTO blogDTO)
         {
-            var blog = await _context.Blogs.Where(b => b.CodigoBlog == blogDTO.CodigoBlog)
+            var blog = await _context.Blogs
+                .Where(b => b.CodigoBlog == blogDTO.CodigoBlog)
                 .FirstOrDefaultAsync() ?? new Blog();
 
             blog.Titulo = blogDTO.Titulo;
@@ -77,7 +80,8 @@ namespace TestBlog.Services
 
         public async Task DeleteBlog(int id)
         {
-            var blog = await _context.Blogs.Where(b => b.CodigoBlog == id)
+            var blog = await _context.Blogs
+                .Where(b => b.CodigoBlog == id)
                 .FirstOrDefaultAsync() ?? new Blog();
 
             _context.Blogs.Remove(blog);
