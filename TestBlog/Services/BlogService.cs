@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TestBlog.DTOs;
+﻿using TestBlog.DTOs;
 using TestBlog.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TestBlog.Services
 {
@@ -16,14 +17,14 @@ namespace TestBlog.Services
         {
             var blogs = await _context.Blogs
                 .Where(b => b.Estado == true)
-                .Select(b => new BlogDTO 
-                { 
-                    CodigoBlog = b.CodigoBlog, 
-                    Titulo = b.Titulo, 
+                .Select(b => new BlogDTO
+                {
+                    CodigoBlog = b.CodigoBlog,
+                    Titulo = b.Titulo,
                     Contenido = b.Contenido,
                     Estado = b.Estado,
-                    CodigoCategoria = b.CodigoCategoria, 
-                    CodigoUsuario = b.CodigoUsuario 
+                    CodigoCategoria = b.CodigoCategoria,
+                    CodigoUsuario = b.CodigoUsuario
                 })
                 .Take(10)
                 .ToListAsync() ?? new List<BlogDTO>();
